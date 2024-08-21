@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
@@ -15,12 +14,12 @@ class _MyHomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-          child: Column(
-        children: [
-          SizedBox(
-            width: double.infinity,
-            height: 250.h,
-            child: Swiper(
+        child: Column(
+          children: [
+            SizedBox(
+              width: double.infinity,
+              height: 250.h,
+              child: Swiper(
                 indicatorLayout: PageIndicatorLayout.NONE,
                 autoplay: true,
                 pagination: const SwiperPagination(),
@@ -35,10 +34,26 @@ class _MyHomePageState extends State<HomePage> {
                       Colors.lightBlue
                     ][index],
                   );
-                }),
-          )
-        ],
-      )),
+                },
+              ),
+            ),
+            Expanded(
+              child: ListView.builder(
+                itemCount: 50,
+                itemBuilder: (context, index) {
+                  return _listItemView();
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _listItemView() {
+    return const Column(
+      children: [],
     );
   }
 }
