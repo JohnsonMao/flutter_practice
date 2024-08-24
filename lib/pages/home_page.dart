@@ -15,39 +15,41 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              width: double.infinity,
-              height: 250.h,
-              child: Swiper(
-                indicatorLayout: PageIndicatorLayout.NONE,
-                autoplay: true,
-                pagination: const SwiperPagination(),
-                control: const SwiperControl(),
-                itemCount: 3,
-                itemBuilder: (context, index) {
-                  return Container(
-                    height: 250.h,
-                    color: [
-                      Colors.pink,
-                      Colors.lightGreen,
-                      Colors.lightBlue
-                    ][index],
-                  );
-                },
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              _banner(),
+              ListView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 itemCount: 50,
                 itemBuilder: (context, index) {
                   return _listItemView('小貓咪${index + 1}');
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+      ),
+    );
+  }
+
+  Widget _banner() {
+    return SizedBox(
+      width: double.infinity,
+      height: 250.h,
+      child: Swiper(
+        indicatorLayout: PageIndicatorLayout.NONE,
+        autoplay: true,
+        pagination: const SwiperPagination(),
+        control: const SwiperControl(),
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return Container(
+            height: 250.h,
+            color: [Colors.pink, Colors.lightGreen, Colors.lightBlue][index],
+          );
+        },
       ),
     );
   }
