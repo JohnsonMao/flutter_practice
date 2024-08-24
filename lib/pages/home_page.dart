@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_practice/pages/web_view_page.dart';
+import 'package:flutter_practice/route/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
@@ -55,9 +55,10 @@ class _HomePageState extends State<HomePage> {
   Widget _listItemView(String title) {
     return InkWell(
       onTap: () {
-        Navigator.push(
+        Navigator.pushNamed(
           context,
-          MaterialPageRoute(builder: (context) => WebViewPage(title: title)),
+          RoutePath.webViewPage,
+          arguments: {'title': title},
         );
       },
       child: Container(
