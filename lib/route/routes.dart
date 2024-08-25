@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_practice/pages/home_page.dart';
+import 'package:flutter_practice/pages/home/home_page.dart';
 import 'package:flutter_practice/pages/web_view_page.dart';
 
 class Routes {

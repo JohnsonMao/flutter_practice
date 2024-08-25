@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/http/dio_instance.dart';
 import 'package:flutter_practice/route/routes.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:oktoast/oktoast.dart';
 
 void main() {
+  DioInstance.instance()
+      .initDio(baseUrl: 'https://jsonplaceholder.typicode.com/');
+
   runApp(const MyApp());
 }
 
