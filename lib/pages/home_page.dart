@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_practice/model/photo.dart';
 import 'package:flutter_practice/route/routes.dart';
+import 'package:flutter_practice/service/service.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
 
@@ -11,6 +13,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Photo> bannerList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    initBannerData();
+  }
+
+  void initBannerData() async {
+    bannerList = await Service.getPhotos();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,11 +58,14 @@ class _HomePageState extends State<HomePage> {
         autoplay: true,
         pagination: const SwiperPagination(),
         control: const SwiperControl(),
-        itemCount: 3,
+        itemCount: bannerList.length,
         itemBuilder: (context, index) {
           return Container(
             height: 250.h,
-            color: [Colors.pink, Colors.lightGreen, Colors.lightBlue][index],
+            child: Image.network(
+              bannerList[index].url ?? "",
+              fit: BoxFit.cover,
+            ),
           );
         },
       ),
@@ -81,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                     'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg',
                     width: 40.r,
                     height: 40.r,
-                    fit: BoxFit.fill,
+                    fit: BoxFit.cover,
                   ),
                 ),
                 Padding(
