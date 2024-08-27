@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_practice/http/http_method.dart';
+import 'package:flutter_practice/http/print_log_interceptor.dart';
 
 class DioInstance {
   static DioInstance? _instance;
@@ -31,6 +32,7 @@ class DioInstance {
       responseType: responseType,
       contentType: contentType,
     );
+    _dio.interceptors.add(PrintLogInterceptor());
   }
 
   Future<Response> get(
