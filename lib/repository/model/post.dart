@@ -35,13 +35,11 @@ class PostCollection {
   List<Post> data = [];
 
   PostCollection.fromJson(dynamic json) {
+    data = [];
     if (json is List) {
-      data = [];
       for (var value in json) {
         data.add(Post.fromJson(value));
       }
-    } else {
-      data = [Post.fromJson(json)];
     }
   }
 

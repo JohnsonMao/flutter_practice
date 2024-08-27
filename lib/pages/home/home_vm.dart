@@ -1,40 +1,21 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_practice/http/dio_instance.dart';
-import 'package:flutter_practice/model/photo.dart';
-import 'package:flutter_practice/model/post.dart';
+import 'package:flutter_practice/repository/api.dart';
+import 'package:flutter_practice/repository/model/photo.dart';
+import 'package:flutter_practice/repository/model/post.dart';
 
 class HomeViewModel with ChangeNotifier {
   List<Photo> photoList = [];
   List<Post> postList = [];
 
   Future getPhotos() async {
-    Response response = await DioInstance.instance().get('photos');
-
-    photoList = [];
-
-    if (response.statusCode == 200) {
-      PhotoCollection photoCollection = PhotoCollection.fromJson(response.data);
-      for (int i = 0; i < 4; i++) {
-        photoList.add(photoCollection.data[i]);
-      }
-    }
-
+    List<Photo> data = await Api.instance.getPhotos();
+    photoList = data.getRange(0, 4).toList();
     notifyListeners();
   }
 
   Future getPosts() async {
-    Response response = await DioInstance.instance().get('posts');
-
-    postList = [];
-
-    if (response.statusCode == 200) {
-      PostCollection postCollection = PostCollection.fromJson(response.data);
-      for (int i = 0; i < 10; i++) {
-        postList.add(postCollection.data[i]);
-      }
-    }
-
+    List<Post> data = await Api.instance.getPosts();
+    postList = data.getRange(0, 10).toList();
     notifyListeners();
   }
 }

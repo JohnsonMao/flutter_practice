@@ -40,13 +40,11 @@ class PhotoCollection {
   List<Photo> data = [];
 
   PhotoCollection.fromJson(dynamic json) {
+    data = [];
     if (json is List) {
-      data = [];
       for (var value in json) {
         data.add(Photo.fromJson(value));
       }
-    } else {
-      data = [Photo.fromJson(json)];
     }
   }
 

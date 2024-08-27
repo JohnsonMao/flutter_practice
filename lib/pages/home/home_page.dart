@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_practice/model/post.dart';
+import 'package:flutter_practice/repository/model/post.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_practice/route/routes.dart';
 import 'package:flutter_practice/pages/home/home_vm.dart';
@@ -90,9 +90,8 @@ class _HomePageState extends State<HomePage> {
         );
       },
       child: Container(
-        margin: EdgeInsets.only(top: 5.h, bottom: 5.h, left: 10.w, right: 10.w),
-        padding:
-            EdgeInsets.only(top: 5.h, bottom: 5.h, left: 10.w, right: 10.w),
+        margin: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
+        padding: EdgeInsets.symmetric(vertical: 5.h, horizontal: 10.w),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black12, width: 0.5.r),
           borderRadius: BorderRadius.all(Radius.circular(6.r)),
