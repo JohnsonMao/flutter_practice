@@ -5,6 +5,7 @@ import 'package:flutter_practice/route/routes.dart';
 import 'package:flutter_practice/pages/home/home_vm.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_swiper_view/flutter_swiper_view.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,12 +16,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   HomeViewModel viewModel = HomeViewModel();
+  RefreshController refreshController = RefreshController();
 
   @override
   void initState() {
     super.initState();
     viewModel.getPhotos();
-    viewModel.getPosts();
+    viewModel.getPosts(false);
   }
 
   @override
@@ -29,12 +31,28 @@ class _HomePageState extends State<HomePage> {
       create: (context) => viewModel,
       child: Scaffold(
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                _banner(),
-                _listView(),
-              ],
+          child: SmartRefresher(
+            controller: refreshController,
+            enablePullUp: true,
+            enablePullDown: true,
+            header: const ClassicHeader(),
+            footer: const ClassicFooter(),
+            onRefresh: () async {
+              await viewModel.getPhotos();
+              await viewModel.getPosts(false);
+              refreshController.refreshCompleted();
+            },
+            onLoading: () async {
+              await viewModel.getPosts(true);
+              refreshController.loadComplete();
+            },
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  _banner(),
+                  _listView(),
+                ],
+              ),
             ),
           ),
         ),

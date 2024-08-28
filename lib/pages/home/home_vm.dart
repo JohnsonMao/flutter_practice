@@ -5,7 +5,9 @@ import 'package:flutter_practice/repository/model/post.dart';
 
 class HomeViewModel with ChangeNotifier {
   List<Photo> photoList = [];
+  List<Post> originalPostList = [];
   List<Post> postList = [];
+  int totalPosts = 10;
 
   Future getPhotos() async {
     List<Photo> data = await Api.instance.getPhotos();
@@ -13,9 +15,16 @@ class HomeViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  Future getPosts() async {
-    List<Post> data = await Api.instance.getPosts();
-    postList = data.getRange(0, 10).toList();
+  Future getPosts(bool isMorePosts) async {
+    if (originalPostList.isEmpty) {
+      originalPostList = await Api.instance.getPosts();
+    }
+    if (isMorePosts) {
+      totalPosts += 10;
+    } else {
+      totalPosts = 10;
+    }
+    postList = originalPostList.getRange(0, totalPosts).toList();
     notifyListeners();
   }
 }
